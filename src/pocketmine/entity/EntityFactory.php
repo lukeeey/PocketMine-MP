@@ -34,6 +34,7 @@ use pocketmine\entity\projectile\Arrow;
 use pocketmine\entity\projectile\Egg;
 use pocketmine\entity\projectile\EnderPearl;
 use pocketmine\entity\projectile\ExperienceBottle;
+use pocketmine\entity\projectile\FireworksRocket;
 use pocketmine\entity\projectile\Snowball;
 use pocketmine\entity\projectile\SplashPotion;
 use pocketmine\math\Vector3;
@@ -94,6 +95,7 @@ final class EntityFactory{
 		self::register(Squid::class, false, ['Squid', 'minecraft:squid']);
 		self::register(Villager::class, false, ['Villager', 'minecraft:villager']);
 		self::register(Zombie::class, false, ['Zombie', 'minecraft:zombie']);
+		self::register(FireworksRocket::class, false, ['FireworksRocket', 'minecraft:fireworks_rocket']);
 
 		self::register(Human::class, true);
 

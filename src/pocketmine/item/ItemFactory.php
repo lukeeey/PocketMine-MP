@@ -272,6 +272,7 @@ class ItemFactory{
 		self::register(new WheatSeeds(Item::WHEAT_SEEDS, 0, "Wheat Seeds"));
 		self::register(new WritableBook(Item::WRITABLE_BOOK, 0, "Book & Quill"));
 		self::register(new WrittenBook(Item::WRITTEN_BOOK, 0, "Written Book"));
+		self::register(new Fireworks(Item::FIREWORKS, 0, "Firework Rocket"));
 
 		foreach(SkullType::getAll() as $skullType){
 			self::register(new Skull(Item::SKULL, $skullType->getMagicNumber(), $skullType->getDisplayName(), $skullType));
@@ -322,7 +323,6 @@ class ItemFactory{
 		//TODO: minecraft:end_crystal
 		//TODO: minecraft:ender_eye
 		//TODO: minecraft:fireball
-		//TODO: minecraft:fireworks
 		//TODO: minecraft:fireworksCharge
 		//TODO: minecraft:glow_stick
 		//TODO: minecraft:hopper_minecart
