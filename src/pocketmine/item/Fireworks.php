@@ -43,20 +43,21 @@ class Fireworks extends Item{
     private const TAG_FIREWORK_FLICKER = "FireworkFlicker";
     private const TAG_FIREWORK_TRAIL = "FireworkTrail";
     private const TAG_FIREWORK_TYPE = "FireworkType";
-    
+
     /** @var float */
     private $spread = 5.0;
 
 	public function onActivate(Player $player, Block $blockReplace, Block $blockClicked, int $face, Vector3 $clickVector) : ItemUseResult{
         $random = new Random();
-        $this->addExplosion(FireworkExplosion::create()->setColor(2)->setHasTrail(true)->setFade(4));
-        $this->addExplosion(FireworkExplosion::create()->setColor(5)->setHasTrail(false)->setFade(1)->setType(3));
+        $this->addExplosion(FireworkExplosion::create()->setColor(5)->setHasTrail(false)->setType(2));
+
         $nbt = EntityFactory::createBaseNBT(
             $blockReplace->add(0.5, 0, 0.5), 
             null,
             $random->nextBoundedInt(360),
             (float) (90 + ($random->nextFloat() * $this->spread - $this->spread / 2))
         );
+        $nbt->setTag("Fireworks", $this->getBaseTag());
 
         /** @var FireworksRocket $entity */
         $entity = EntityFactory::create(FireworksRocket::class, $player->getWorld(), $nbt, $player);
@@ -96,8 +97,7 @@ class Fireworks extends Item{
         );
         $nbt = $this->getBaseTag();
         $nbt->setTag(self::TAG_EXPLOSIONS, $tag);
-        $this->setNamedTag($nbt);
-        var_dump($nbt->toString());
+        $this->setNamedTagEntry($nbt);
     }
     
     public function getFlightTime() : int{
@@ -107,7 +107,14 @@ class Fireworks extends Item{
     public function setFlightTime(int $time) : self{
         $nbt = $this->getBaseTag();
         $nbt->setByte(self::TAG_FLIGHT, $time);
-        $this->setNamedTag($nbt);
+        $this->setNamedTagEntry($nbt);
         return $this;
+    }
+
+    // temporary
+    private function setNamedTagEntry(CompoundTag $new) : void{
+        $tag = $this->getNamedTag();
+		$tag->setTag("Fireworks", $new);
+		$this->setNamedTag($tag);
     }
 }

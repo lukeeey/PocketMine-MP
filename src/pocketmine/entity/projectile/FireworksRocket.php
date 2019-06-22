@@ -57,7 +57,7 @@ class FireworksRocket extends Projectile{
 
         $flyTime = 1;
         if($nbt->hasTag("Fireworks")){
-            $flyTime = $nbt->getCompoundTag("Flight")->getByte("Flight", 1);
+            $flyTime = $nbt->getCompoundTag("Fireworks")->getByte("Flight", 1);
         }
 
         $this->lifetime = 20 * $flyTime + $random->nextBoundedInt(5) + $random->nextBoundedInt(7);
@@ -77,7 +77,7 @@ class FireworksRocket extends Projectile{
     }
 
 	protected function entityBaseTick(int $tickDiff = 1) : bool{
-		if($this->lifetime < 0) {
+		if($this->lifetime-- < 0) {
             $this->flagForDespawn();
             return true;
         }else{
